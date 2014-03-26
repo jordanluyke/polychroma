@@ -1,7 +1,9 @@
 var polychroma = (function() {
+  const width = 640;
+  const height = 400;
   var currentPoint, ctx;
 
-  var init = function(width, height, canvasId) {
+  var init = function(canvasId) {
     currentPoint = new Point();
     var canvas = $("#" + canvasId)[0];
     canvas.width = width;
