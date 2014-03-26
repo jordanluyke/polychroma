@@ -1,10 +1,10 @@
 var polychroma = (function() {
   const width = 640;
   const height = 400;
-  var currentPoint, ctx;
+  var localPoint, ctx;
 
   var init = function(canvasId) {
-    currentPoint = new Point();
+    localPoint = new Point();
     var canvas = $("#" + canvasId)[0];
     canvas.width = width;
     canvas.height = height;
@@ -45,14 +45,14 @@ var polychroma = (function() {
       var mouseIsDown = false;
 
       var mouseDown = function(event) {
-        currentPoint.setPoint(event.offsetX, event.offsetY);
+        localPoint.setPoint(event.offsetX, event.offsetY);
         mouseIsDown = true;
       };
 
       var mouseMove = function(event) {
-        if (mouseIsDown == true && currentPoint.distanceToCurrent(event.offsetX, event.offsetY) > 10) {
-          currentPoint.setPoint(event.offsetX, event.offsetY);
-          View.renderLine(currentPoint);
+        if (mouseIsDown == true && localPoint.distanceToCurrent(event.offsetX, event.offsetY) > 10) {
+          localPoint.setPoint(event.offsetX, event.offsetY);
+          View.renderLine(localPoint);
         }
       };
 
