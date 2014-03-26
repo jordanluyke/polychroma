@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Polychroma</title>
+  <title>polychroma</title>
   <link rel="stylesheet" type="text/css" href="http://necolas.github.io/normalize.css/3.0.0/normalize.css">
-  <link rel="stylesheet" type="text/css" href="css/application.css">
+  <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   <script src="js/polychroma-client.js"></script>
   <script src="js/application.js"></script>
 </head>
 <body>
-  <header>
-  </header>
+  <div class="container">
+    <header>
+      <h1>polychroma</h1>
+    </header>
 
-  <canvas id="my-canvas-id">
-  </canvas>
+    <canvas id="my-canvas-id"></canvas>
 
+    <p>
+      Start painting!
+    </p>
+
+    <footer>
+      Made by Jordan Luyke<br>
+      <br>
+      <a href="https://twitter.com/jluyke" class="twitter-follow-button" data-show-count="false">Follow @jluyke</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      <iframe src="http://ghbtns.com/github-btn.html?user=jluyke&type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="132" height="20"></iframe>
+    </footer>
+  </div>
 </body>
 </html>
