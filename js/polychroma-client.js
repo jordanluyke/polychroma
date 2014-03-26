@@ -1,16 +1,16 @@
 var polychroma = (function() {
   const width = 640;
   const height = 400;
-  var localPoint, canvas, ctx;
+  var localPoint;
 
   var init = function(canvasId) {
     localPoint = new Point();
-    canvas = $("#" + canvasId)[0];
+    var canvas = $("#" + canvasId)[0];
     canvas.width = width;
     canvas.height = height;
-    ctx = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, width, height);
-    Bindings.bindLocalListeners();
+    Bindings.bindLocalListeners(canvas, ctx);
   };
 
   function Point() {
@@ -41,7 +41,7 @@ var polychroma = (function() {
   };
 
   var Bindings = {
-    bindLocalListeners: function() {
+    bindLocalListeners: function(canvas, ctx) {
       var mouseIsDown = false;
 
       var mouseDown = function(event) {
@@ -53,7 +53,7 @@ var polychroma = (function() {
         if (mouseIsDown == true) {
           if (localPoint.distanceToCurrent(event.offsetX, event.offsetY) > 10) {
             localPoint.setPoint(event.offsetX, event.offsetY);
-            View.renderLine(localPoint);
+            View.renderLine(ctx, localPoint);
           }
         }
       };
@@ -69,7 +69,7 @@ var polychroma = (function() {
   };
 
   var View = {
-    renderLine: function(point) {
+    renderLine: function(ctx, point) {
       ctx.strokeStyle = point.getRandomColor();
       ctx.lineWidth = 10;
       ctx.beginPath();
