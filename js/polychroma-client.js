@@ -1,16 +1,15 @@
 var polychroma = (function() {
-  var localPoint;
 
   var init = function(canvasId) {
     const canvasWidth = 640;
     const canvasHeight = 400;
-    localPoint = new Point();
+    var localPoint = new Point();
     var canvas = $("#" + canvasId)[0];
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    Bindings.bindLocalListeners(canvas, ctx);
+    Bindings.bindLocalListeners(canvas, ctx, localPoint);
   };
 
   function Point() {
@@ -41,7 +40,7 @@ var polychroma = (function() {
   };
 
   var Bindings = {
-    bindLocalListeners: function(canvas, ctx) {
+    bindLocalListeners: function(canvas, ctx, localPoint) {
       var mouseIsDown = false;
 
       var mouseDown = function(event) {
