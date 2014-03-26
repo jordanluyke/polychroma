@@ -1,11 +1,11 @@
 var polychroma = (function() {
   const width = 640;
   const height = 400;
-  var localPoint, ctx;
+  var localPoint, canvas, ctx;
 
   var init = function(canvasId) {
     localPoint = new Point();
-    var canvas = $("#" + canvasId)[0];
+    canvas = $("#" + canvasId)[0];
     canvas.width = width;
     canvas.height = height;
     ctx = canvas.getContext("2d");
@@ -50,9 +50,11 @@ var polychroma = (function() {
       };
 
       var mouseMove = function(event) {
-        if (mouseIsDown == true && localPoint.distanceToCurrent(event.offsetX, event.offsetY) > 10) {
-          localPoint.setPoint(event.offsetX, event.offsetY);
-          View.renderLine(localPoint);
+        if (mouseIsDown == true) {
+          if (localPoint.distanceToCurrent(event.offsetX, event.offsetY) > 10) {
+            localPoint.setPoint(event.offsetX, event.offsetY);
+            View.renderLine(localPoint);
+          }
         }
       };
 
@@ -60,8 +62,8 @@ var polychroma = (function() {
         mouseIsDown = false;
       };
 
-      $(document).mousedown(mouseDown);
-      $(document).mousemove(mouseMove);
+      $(canvas).mousedown(mouseDown);
+      $(canvas).mousemove(mouseMove);
       $(document).mouseup(mouseUp);
     }
   };
