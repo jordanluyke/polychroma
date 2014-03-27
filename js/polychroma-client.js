@@ -33,7 +33,7 @@ var polychroma = (function() {
       this.lastPoint.y = y;
     },
 
-    distanceToCurrent: function(x, y) {
+    distanceTo: function(x, y) {
       return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
     },
 
@@ -56,7 +56,7 @@ var polychroma = (function() {
 
     mouseMoveEvent: function(e) {
       if (this.mouseIsDown) {
-        if (this.localPoint.distanceToCurrent(e.offsetX, e.offsetY) > 10) {
+        if (this.localPoint.distanceTo(e.offsetX, e.offsetY) > 10) {
           this.localPoint.setPoint(e.offsetX, e.offsetY);
           this.localPoint.setRandomColor();
           View.renderLine(this.ctx, this.localPoint);
@@ -91,7 +91,7 @@ var polychroma = (function() {
     bindMouseUp: function() {
       $(document).mouseup(function(e) {
         Controller.mouseUpEvent(e);
-      })
+      });
     }
   };
 
