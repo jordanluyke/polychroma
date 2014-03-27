@@ -77,19 +77,19 @@ var polychroma = (function() {
     },
 
     bindMouseDown: function(canvas) {
-      $(canvas).mousedown(function(e) {
+      $(canvas).on("mousedown", function(e) {
         Controller.mouseDownEvent(e);
       });
     },
 
     bindMouseMove: function(canvas) {
-      $(canvas).mousemove(function(e) {
+      $(canvas).on("mousemove", function(e) {
         Controller.mouseMoveEvent(e);
       });
     },
 
     bindMouseUp: function() {
-      $(document).mouseup(function(e) {
+      $(document).on("mouseup", function(e) {
         Controller.mouseUpEvent(e);
       });
     }
