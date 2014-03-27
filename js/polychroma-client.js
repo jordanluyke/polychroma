@@ -3,19 +3,22 @@ var polychroma = (function() {
   var init = function(canvasId) {
     const canvasWidth = 640;
     const canvasHeight = 400;
-    var localPoint = new Point();
     var canvas = $("#" + canvasId)[0];
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    Bindings.bindLocalListeners(canvas, ctx, localPoint);
+    Binder.bind(canvas);
+    Controller.ctx = ctx;
+    Controller.localPoint = new Point();
   };
 
   function Point() {
     this.x = 0;
     this.y = 0;
     this.lastPoint = {};
+    this.color = "#FFFFFF";
+    this.lineWidth = 10;
   };
 
   Point.prototype = {
@@ -34,43 +37,68 @@ var polychroma = (function() {
       return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
     },
 
-    getRandomColor: function() {
-      return "#" + Math.floor(Math.random() * 16777215).toString(16); // credit: Paul Irish
+    setRandomColor: function() {
+      this.color = "#" + Math.floor(Math.random() * 16777215).toString(16); // credit: Paul Irish
     }
   };
 
-  var Bindings = {
-    bindLocalListeners: function(canvas, ctx, localPoint) {
-      var mouseIsDown = false;
+  var Controller = {
+    ctx: {},
 
-      var mouseDown = function(event) {
-        localPoint.setPoint(event.offsetX, event.offsetY);
-        mouseIsDown = true;
-      };
+    localPoint: {},
 
-      var mouseMove = function(event) {
-        if (mouseIsDown) {
-          if (localPoint.distanceToCurrent(event.offsetX, event.offsetY) > 10) {
-            localPoint.setPoint(event.offsetX, event.offsetY);
-            View.renderLine(ctx, localPoint);
-          }
+    mouseIsDown: false,
+
+    mouseDownEvent: function(e) {
+      this.localPoint.setPoint(e.offsetX, e.offsetY);
+      this.mouseIsDown = true;
+    },
+
+    mouseMoveEvent: function(e) {
+      if (this.mouseIsDown) {
+        if (this.localPoint.distanceToCurrent(e.offsetX, e.offsetY) > 10) {
+          this.localPoint.setPoint(e.offsetX, e.offsetY);
+          this.localPoint.setRandomColor();
+          View.renderLine(this.ctx, this.localPoint);
         }
-      };
+      }
+    },
 
-      var mouseUp = function(event) {
-        mouseIsDown = false;
-      };
+    mouseUpEvent: function(e) {
+      this.mouseIsDown = false;
+    }
+  };
 
-      $(canvas).mousedown(mouseDown);
-      $(canvas).mousemove(mouseMove);
-      $(document).mouseup(mouseUp);
+  var Binder = {
+    bind: function(canvas) {
+      this.bindMouseDown(canvas);
+      this.bindMouseMove(canvas);
+      this.bindMouseUp();
+    },
+
+    bindMouseDown: function(canvas) {
+      $(canvas).mousedown(function(e) {
+        Controller.mouseDownEvent(e);
+      });
+    },
+
+    bindMouseMove: function(canvas) {
+      $(canvas).mousemove(function(e) {
+        Controller.mouseMoveEvent(e);
+      });
+    },
+
+    bindMouseUp: function() {
+      $(document).mouseup(function(e) {
+        Controller.mouseUpEvent(e);
+      })
     }
   };
 
   var View = {
     renderLine: function(ctx, point) {
-      ctx.strokeStyle = point.getRandomColor();
-      ctx.lineWidth = 10;
+      ctx.strokeStyle = point.color;
+      ctx.lineWidth = point.lineWidth;
       ctx.beginPath();
       ctx.moveTo(point.lastPoint.x, point.lastPoint.y);
       ctx.lineTo(point.x, point.y);
