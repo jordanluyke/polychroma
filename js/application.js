@@ -4,9 +4,9 @@ $(document).ready(function() {
 
   setTimeout(function() {
     if (polychroma.isConnected()) {
-      $("#server-status").html("Connected! Try painting with friends!")
+      $("#server-status").html("Connected! Try painting with friends!");
     } else {
-      $("#server-status").html("Not connected.")
+      $("#server-status").html("Not connected.");
     }
   }, 1000);
 });
