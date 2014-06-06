@@ -1,6 +1,7 @@
 body {
   font-family: 'Oxygen', sans-serif;
   background-color: #D6E3E8;
+  overflow: hidden;
 }
 
 .container {
