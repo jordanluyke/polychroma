@@ -40,7 +40,6 @@ Requirements
 
 For client:
 - A modern browser
-- jQuery
 
 For server:
 - Nodejs: [http://nodejs.org/](http://nodejs.org/)
