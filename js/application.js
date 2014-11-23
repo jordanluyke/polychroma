@@ -1,6 +1,6 @@
 $(document).ready(function() {
   polychroma.init("my-canvas-id");
-  polychroma.connect("http://jordanluyke.com:5000");
+  polychroma.connect("http://54.187.149.115:5000");
 
   setTimeout(function() {
     if (polychroma.isConnected()) {
