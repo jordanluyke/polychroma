@@ -8,8 +8,6 @@ A small paint app written in JavaScript using HTML5's canvas element.
 
 Multiplayer paint when used with server.
 
-[Check it out here!](https://jordanluyke.github.io/polychroma/)
-
 Usage
 -----
 
