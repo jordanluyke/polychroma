@@ -1,6 +1,6 @@
 $(document).ready(function() {
   polychroma.init('my-canvas-id', 640, 400);
-  polychroma.connect('http://35.162.7.41:5000');
+  // polychroma.connect('http://35.162.7.41:5000');
 
   setTimeout(function() {
     if (polychroma.isConnected()) {
